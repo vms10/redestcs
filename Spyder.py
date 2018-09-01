@@ -81,18 +81,28 @@ K(G,a_red_proteinas)
 K(G1,a_red_binarias)
 K(G2,a_red_literatura)
 
-def Min(H, a_R):
-    M=min(H.in_degree(k) for k in H )
-    Mbis=min(H.out_degree(k) for k in H )
-    MINIMO=min(M,Mbis)
-    print(MINIMO)
-Min(H, red_literatura)
+def Min(H,a_R):
+    if a_R >0:
+        M=min(H.in_degree(k) for k in H )
+        Mbis=min(H.out_degree(k) for k in H )
+        MINIMO=[M,Mbis]
+        
+    else:
+        Mini=min(H.degree(k) for k in H)
+        MINIMO=[Mini]
+    return MINIMO
+
 def Max(H, a_R):
-    Ma=max(H.in_degree(k) for k in H)
-    print(Ma)
-Max(H,red_literatura)
+    if a_R >0:
+        Ma=max(H.in_degree(k) for k in H)
+        Mabis=max(H.out_degree(k) for k in H)
+        MAXIMO=[Ma, Mabis]
+    else:
+        Maxi=max(H.degree(k) for k in H)
+        MAXIMO=[Maxi]
+    return MAXIMO
 
 data = pd.DataFrame({"Red":["Proteinas","Binarias","Literatura"],"Nodos":[G.number_of_nodes(),G1.number_of_nodes(),G2.number_of_nodes()],
                      "Enlaces":[G.number_of_edges(),G1.number_of_edges(),G2.number_of_edges()],
-                     "Dirigida":["No","Sí","Sí"],"k":[K(G,a_red_proteinas),K(G1,a_red_binarias),K(G2,a_red_literatura)],})#empty dataframe
+                     "Dirigida":["No","Sí","Sí"],"Grado medio ([in, out])":[K(G,a_red_proteinas),K(G1,a_red_binarias),K(G2,a_red_literatura)],"Grado máximo([in,out])":[Max(G,a_red_proteinas),Max(G1,a_red_binarias),Max(G2,a_red_literatura)],"Grado mínimo([in,out])":[Min(G,a_red_proteinas),Min(G1,a_red_binarias),Min(G2,a_red_literatura)]})
 data
